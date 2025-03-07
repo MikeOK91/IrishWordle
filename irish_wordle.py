@@ -26,6 +26,19 @@ irish_words = {
     "milis": {"translation": "sweet", "sentence": "Tá milseán milis agam.", "english_sentence": "I have a sweet candy.", "grammar": "Adjective follows noun."},
     "brise": {"translation": "break", "sentence": "Briseann sé an cupán.", "english_sentence": "He breaks the cup.", "grammar": "'Brise' is a verb."},
     "feoil": {"translation": "meat", "sentence": "Ithim feoil.", "english_sentence": "I eat meat.", "grammar": "'Feoil' is a feminine noun."},
+    "cluas": {"translation": "ear", "sentence": "Tá pian i mo chluas.", "english_sentence": "I have pain in my ear.", "grammar": "Feminine noun."},
+"sróna": {"translation": "nose", "sentence": "Tá a sróna fuar.", "english_sentence": "His nose is cold.", "grammar": "Masculine noun."},
+"croía": {"translation": "heart", "sentence": "Tá grá i mo chroía.", "english_sentence": "There is love in my heart.", "grammar": "Masculine noun, 'croí' takes 'croí' in nominative."},
+"rogha": {"translation": "choice", "sentence": "Is é seo mo rogha.", "english_sentence": "This is my choice.", "grammar": "Feminine noun."},
+"leaba": {"translation": "bed", "sentence": "Tá sí sa leaba fós.", "english_sentence": "She is still in bed.", "grammar": "Feminine noun."},
+"méara": {"translation": "fingers", "sentence": "Tá mo mhéara fuar.", "english_sentence": "My fingers are cold.", "grammar": "Plural of 'méar' (finger)."},
+"luath": {"translation": "early", "sentence": "Tá sé ró-luath.", "english_sentence": "It is too early.", "grammar": "Adjective."},
+"amach": {"translation": "out", "sentence": "Téim amach gach lá.", "english_sentence": "I go out every day.", "grammar": "Adverb indicating direction."},
+"tuath": {"translation": "north", "sentence": "Tá mé ag dul ó thuaidh.", "english_sentence": "I am going north.", "grammar": "'Tuath' becomes 'thuaidh' after 'ó'."},
+"dearg": {"translation": "red", "sentence": "Tá an carr dearg.", "english_sentence": "The car is red.", "grammar": "Adjective follows noun."},
+"dubha": {"translation": "black", "sentence": "Tá bróga dubha aige.", "english_sentence": "He has black shoes.", "grammar": "Plural adjective follows noun."},
+"glasa": {"translation": "green", "sentence": "Tá súile glasa aici.", "english_sentence": "She has green eyes.", "grammar": "Plural adjective follows noun."},
+
 }
 
 # Function to reset the game
