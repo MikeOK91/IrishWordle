@@ -1,11 +1,7 @@
-import streamlit as st
 import random
+import streamlit as st
 
-# Title and instructions
-st.title("☘️ Irish Wordle ☘️")
-st.write("Tomhais an focal Gaeilge! (5 litreacha, 6 iarracht)")
-
-# Word list with translations
+# Expanded list of strictly 5-letter Irish words with translations
 irish_words = {
     "madra": "dog", "uisce": "water", "teach": "house", "solas": "light", "bosca": "box",
     "bord": "table", "fuair": "found", "focal": "word", "siopa": "shop", "bróga": "shoes",
@@ -17,13 +13,13 @@ irish_words = {
     "beoir": "beer", "caora": "sheep", "iasca": "fish", "grian": "sun", "cósta": "coast"
 }
 
-# Keep chosen word between sessions
 if 'word_to_guess' not in st.session_state:
     st.session_state.word_to_guess, st.session_state.translation = random.choice(list(irish_words.items()))
     st.session_state.attempts = 6
-    st.session_state.guesses = []
 
-# User input
+st.title("☘️ Irish Wordle ☘️")
+st.write("Tomhais an focal! (5 litreacha). Tá 6 iarracht agat.")
+
 guess = st.text_input("Scríobh do thuairim:").lower()
 
 if st.button("Seol an buille faoi thuairim"):
@@ -40,23 +36,21 @@ if st.button("Seol an buille faoi thuairim"):
                 feedback += f"⬛{guess[i]}"
 
         st.session_state.attempts -= 1
-        st.session_state.setdefault('guesses_list', []).append(feedback)
         st.write(feedback)
 
         if guess == st.session_state.word_to_guess:
             st.success("🎉 Comhghairdeas! D’éirigh leat an focal a aimsiú! 🎉")
-            st.balloons()
-            st.stop()
+            st.session_state.attempts = 0
         else:
-            st.session_state.attempts -= 1
-            st.warning(f"Tá {st.session_state.attempts} iarracht agat fós.")
+            if st.session_state.attempts == 1:
+                if st.checkbox("Ar mhaith leat leid?"):
+                    st.info(f"Leid: {st.session_state.translation}")
 
-        if st.session_state.attempts == 1:
-            if st.checkbox("Ar mhaith leat leid?"):
-                st.info(f"Leid: {st.session_state.translation}")
+            if st.session_state.attempts <= 0:
+                st.error(f"😔 Ádh mór an chéad uair eile! Bhí an focal ceart: '{st.session_state.word_to_guess}' ({st.session_state.translation})")
+            else:
+                st.write(f"Tá {st.session_state.attempts} iarracht agat fós.")
 
-        if st.session_state.attempts <= 0:
-            st.error(f"😔 Ádh mór an chéad uair eile! Bhí an focal ceart: '{st.session_state.word_to_guess}' ({st.session_state.translation})")
-            st.stop()
-
-st.write(f"Iarrachtaí fágtha: {st.session_state.attempts}")
+# Initialize session state
+if 'word_to_guess' not in st.session_state:
+    st.session_state.word_to_guess, st.session_state.translation = random.choice(list(irish_words.items()))
