@@ -10,7 +10,13 @@ irish_words = {
     "gaoth": "wind", "móran": "many", "beaga": "small", "luath": "early", "amach": "out",
     "tuath": "north", "cluas": "ear", "sróna": "nose", "croía": "heart", "rogha": "choice",
     "scoil": "school", "leaba": "bed", "ardán": "stage", "geata": "gate", "méara": "fingers",
-    "beoir": "beer", "caora": "sheep", "iasca": "fish", "grian": "sun", "cósta": "coast"
+    "beoir": "beer", "caora": "sheep", "iasca": "fish", "grian": "sun", "cósta": "coast", "ainmh": "animal", "bádóg": "boat", "brise": "break", "cáise": "cheese", "cloch": "stone",
+"damhsa": "dance", "dráma": "drama", "éasca": "easy", "fáisc": "squeeze", "feoil": "meat",
+"geall": "promise", "leann": "ale", "maith": "good", "neart": "power", "ólann": "drink",
+"pláta": "plate", "ráite": "said", "ríoga": "royal", "seang": "slim", "tobar": "well",
+"urlár": "floor", "féach": "look", "múine": "teach", "léigh": "read", "scríb": "write",
+"seomr": "room", "breis": "extra", "brion": "dream", "páirc": "field", "dorás": "door"
+
 }
 
 # Function to reset the game
