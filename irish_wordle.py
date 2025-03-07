@@ -22,23 +22,6 @@ irish_words = {
     "beoir": {"translation": "beer", "sentence": "Ólann sé beoir.", "english_sentence": "He drinks beer.", "grammar": "Feminine noun."},
     "iasca": {"translation": "fish", "sentence": "Ithim iasca go minic.", "english_sentence": "I eat fish often.", "grammar": "Plural form of 'iasc'."},
     "geata": {"translation": "gate", "sentence": "Dún an geata, le do thoil.", "english_sentence": "Close the gate, please.", "grammar": "Masculine noun."},
-    "crann": {"translation": "tree", "sentence": "Tá crann mór sa ghairdín.", "english_sentence": "There is a tree in the garden.", "grammar": "Masculine noun."},
-    "milis": {"translation": "sweet", "sentence": "Tá milseán milis agam.", "english_sentence": "I have a sweet candy.", "grammar": "Adjective follows noun."},
-    "brise": {"translation": "break", "sentence": "Briseann sé an cupán.", "english_sentence": "He breaks the cup.", "grammar": "'Brise' is a verb."},
-    "feoil": {"translation": "meat", "sentence": "Ithim feoil.", "english_sentence": "I eat meat.", "grammar": "'Feoil' is a feminine noun."},
-    "cluas": {"translation": "ear", "sentence": "Tá pian i mo chluas.", "english_sentence": "I have pain in my ear.", "grammar": "Feminine noun."},
-"sróna": {"translation": "nose", "sentence": "Tá a sróna fuar.", "english_sentence": "His nose is cold.", "grammar": "Masculine noun."},
-"croía": {"translation": "heart", "sentence": "Tá grá i mo chroía.", "english_sentence": "There is love in my heart.", "grammar": "Masculine noun, 'croí' takes 'croí' in nominative."},
-"rogha": {"translation": "choice", "sentence": "Is é seo mo rogha.", "english_sentence": "This is my choice.", "grammar": "Feminine noun."},
-"leaba": {"translation": "bed", "sentence": "Tá sí sa leaba fós.", "english_sentence": "She is still in bed.", "grammar": "Feminine noun."},
-"méara": {"translation": "fingers", "sentence": "Tá mo mhéara fuar.", "english_sentence": "My fingers are cold.", "grammar": "Plural of 'méar' (finger)."},
-"luath": {"translation": "early", "sentence": "Tá sé ró-luath.", "english_sentence": "It is too early.", "grammar": "Adjective."},
-"amach": {"translation": "out", "sentence": "Téim amach gach lá.", "english_sentence": "I go out every day.", "grammar": "Adverb indicating direction."},
-"tuath": {"translation": "north", "sentence": "Tá mé ag dul ó thuaidh.", "english_sentence": "I am going north.", "grammar": "'Tuath' becomes 'thuaidh' after 'ó'."},
-"dearg": {"translation": "red", "sentence": "Tá an carr dearg.", "english_sentence": "The car is red.", "grammar": "Adjective follows noun."},
-"dubha": {"translation": "black", "sentence": "Tá bróga dubha aige.", "english_sentence": "He has black shoes.", "grammar": "Plural adjective follows noun."},
-"glasa": {"translation": "green", "sentence": "Tá súile glasa aici.", "english_sentence": "She has green eyes.", "grammar": "Plural adjective follows noun."},
-
 }
 
 # Function to reset the game
@@ -52,4 +35,62 @@ def reset_game():
     st.session_state.attempts = 6
     st.session_state.previous_guesses = []
 
-# (Rest of your game code remains unchanged here)
+# Initialize session state
+if 'word_to_guess' not in st.session_state:
+    reset_game()
+
+st.title("☘️ Irish Wordle ☘️")
+st.write("Tomhais an focal! (5 litreacha). Tá 6 iarracht agat.")
+
+# Display previous guesses
+for past_guess in st.session_state.previous_guesses:
+    st.write(past_guess)
+
+guess = st.text_input("Scríobh do thuairim:").lower()
+
+if st.button("Seol an buille faoi thuairim"):
+    if len(guess) != 5:
+        st.warning("⚠️ Caithfidh an focal a bheith 5 litreacha ar fad.")
+    else:
+        feedback = ""
+        for i in range(5):
+            if guess[i] == st.session_state.word_to_guess[i]:
+                feedback += f"🟩{guess[i]}"
+            elif guess[i] in st.session_state.word_to_guess:
+                feedback += f"🟨{guess[i]}"
+            else:
+                feedback += f"⬛{guess[i]}"
+
+        st.session_state.attempts -= 1
+        guess_feedback = f"{guess.upper()} - {feedback}"
+        st.session_state.previous_guesses.append(guess_feedback)
+        st.write(guess_feedback)
+
+        if guess == st.session_state.word_to_guess:
+            st.success("🎉 Comhghairdeas! D’éirigh leat an focal a aimsiú! 🎉")
+            st.info(f"📚 Grammar Tip: {st.session_state.grammar}")
+            sound_file = BytesIO()
+            tts = gTTS(st.session_state.word_to_guess, lang='ga')
+            tts.write_to_fp(sound_file)
+            st.audio(sound_file, format='audio/mp3')
+            st.info(f"📖 {st.session_state.sentence} ({st.session_state.english_sentence})")
+            st.session_state.attempts = 0
+        else:
+            if st.session_state.attempts == 2:
+                sentence_with_blank = st.session_state.sentence.replace(st.session_state.word_to_guess, "_____", 1)
+                st.info(f"📖 Sampla: {sentence_with_blank}")
+            if st.session_state.attempts == 1:
+                st.info(f"📖 Translation: {st.session_state.english_sentence}")
+
+            if st.session_state.attempts <= 0:
+                st.error(f"😔 Ádh mór an chéad uair eile! Bhí an focal ceart: '{st.session_state.word_to_guess}' ({st.session_state.translation})")
+                st.info(f"📖 Sampla: {st.session_state.sentence} ({st.session_state.english_sentence})")
+                sound_file = BytesIO()
+                tts = gTTS(st.session_state.word_to_guess, lang='ga')
+                tts.write_to_fp(sound_file)
+                st.audio(sound_file, format='audio/mp3')
+            else:
+                st.write(f"Tá {st.session_state.attempts} iarracht agat fós.")
+
+if st.button("Cluiche Nua"):
+    reset_game()
