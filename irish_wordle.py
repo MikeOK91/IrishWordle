@@ -48,9 +48,8 @@ if st.button("Seol an buille faoi thuairim"):
             st.success("🎉 Comhghairdeas! D’éirigh leat an focal a aimsiú! 🎉")
             st.session_state.attempts = 0
         else:
-            if st.session_state.attempts == 1 and not st.session_state.hint_requested:
-                if st.button("Ar mhaith leat leid?"):
-                    st.session_state.hint_requested = True
+            if st.session_state.attempts == 1:
+                st.session_state.hint_requested = st.checkbox("Ar mhaith leat leid?")
 
             if st.session_state.hint_requested:
                 st.info(f"Leid: {st.session_state.translation}")
