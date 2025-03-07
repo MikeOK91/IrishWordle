@@ -23,6 +23,7 @@ irish_words = {
 def reset_game():
     st.session_state.word_to_guess, st.session_state.translation = random.choice(list(irish_words.items()))
     st.session_state.attempts = 6
+    st.session_state.previous_guesses = []
 
 # Initialize session state
 if 'word_to_guess' not in st.session_state:
@@ -30,6 +31,11 @@ if 'word_to_guess' not in st.session_state:
 
 st.title("☘️ Irish Wordle ☘️")
 st.write("Tomhais an focal! (5 litreacha). Tá 6 iarracht agat.")
+
+# Display previous guesses
+if 'previous_guesses' in st.session_state:
+    for past_guess in st.session_state.previous_guesses:
+        st.write(past_guess)
 
 guess = st.text_input("Scríobh do thuairim:").lower()
 
@@ -47,7 +53,9 @@ if st.button("Seol an buille faoi thuairim"):
                 feedback += f"⬛{guess[i]}"
 
         st.session_state.attempts -= 1
-        st.write(feedback)
+        guess_feedback = f"{guess.upper()} - {feedback}"
+        st.session_state.previous_guesses.append(guess_feedback)
+        st.write(guess_feedback)
 
         if guess == st.session_state.word_to_guess:
             st.success("🎉 Comhghairdeas! D’éirigh leat an focal a aimsiú! 🎉")
