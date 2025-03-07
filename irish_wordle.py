@@ -21,7 +21,7 @@ irish_words = {
     "grian": {"translation": "sun", "sentence": "Tá an ghrian ag taitneamh.", "english_sentence": "The sun is shining.", "grammar": "Feminine noun, takes lenition."},
     "beoir": {"translation": "beer", "sentence": "Ólann sé beoir.", "english_sentence": "He drinks beer.", "grammar": "Feminine noun."},
     "iasca": {"translation": "fish", "sentence": "Ithim iasca go minic.", "english_sentence": "I eat fish often.", "grammar": "Plural form of 'iasc'."},
-    "geata": {"translation": "gate", "sentence": "Dún an geata, le do thoil.", "english_sentence": "Close the gate, please.", "grammar": "Masculine noun."},
+    "geata": {"translation": "gate", "sentence": "Dún an geata, le do thoil.", "english_sentence": "Close the gate, please.", "grammar": "Masculine noun."},# ... other words remain unchanged
 }
 
 # Function to reset the game
@@ -70,7 +70,7 @@ if st.button("Seol an buille faoi thuairim"):
             st.success("🎉 Comhghairdeas! D’éirigh leat an focal a aimsiú! 🎉")
             st.info(f"📚 Grammar Tip: {st.session_state.grammar}")
             sound_file = BytesIO()
-            tts = gTTS(st.session_state.word_to_guess, lang='ga')
+            tts = gTTS(st.session_state.word_to_guess, lang='en', tld='ie')
             tts.write_to_fp(sound_file)
             st.audio(sound_file, format='audio/mp3')
             st.info(f"📖 {st.session_state.sentence} ({st.session_state.english_sentence})")
@@ -86,7 +86,7 @@ if st.button("Seol an buille faoi thuairim"):
                 st.error(f"😔 Ádh mór an chéad uair eile! Bhí an focal ceart: '{st.session_state.word_to_guess}' ({st.session_state.translation})")
                 st.info(f"📖 Sampla: {st.session_state.sentence} ({st.session_state.english_sentence})")
                 sound_file = BytesIO()
-                tts = gTTS(st.session_state.word_to_guess, lang='ga')
+                tts = gTTS(st.session_state.word_to_guess, lang='en', tld='ie')
                 tts.write_to_fp(sound_file)
                 st.audio(sound_file, format='audio/mp3')
             else:
