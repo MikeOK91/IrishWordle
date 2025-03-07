@@ -17,7 +17,6 @@ irish_words = {
 def reset_game():
     st.session_state.word_to_guess, st.session_state.translation = random.choice(list(irish_words.items()))
     st.session_state.attempts = 6
-    st.session_state.hint_requested = False
 
 # Initialize session state
 if 'word_to_guess' not in st.session_state:
@@ -49,10 +48,7 @@ if st.button("Seol an buille faoi thuairim"):
             st.session_state.attempts = 0
         else:
             if st.session_state.attempts == 1:
-                st.session_state.hint_requested = st.checkbox("Ar mhaith leat leid?")
-
-            if st.session_state.hint_requested:
-                st.info(f"Leid: {st.session_state.translation}")
+                st.info(f"📝 Leid: {st.session_state.translation}")
 
             if st.session_state.attempts <= 0:
                 st.error(f"😔 Ádh mór an chéad uair eile! Bhí an focal ceart: '{st.session_state.word_to_guess}' ({st.session_state.translation})")
